@@ -10,5 +10,5 @@ resource "aws_instance" "example-test" {
 }
 
 output "ip" {
-  value = "${aws_instance.ip.public_ip}"
+  value = "${aws_instance.example-test.public_ip}"
 }
