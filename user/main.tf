@@ -1,21 +1,15 @@
-module "blee" {
-  source   = "./user"
-  name     = "blee"
-
-  // base64-encoded PGP public key (NOT PEM FORMAT)
-  pgp_key = ""
-
- gui_access  = "true"
+resource "aws_iam_user" "user" {
+  name = "${var.name}"
 }
 
-output "blee-accesskey" {
-  value = "${module.blee.access_key_id}"
+resource "aws_iam_access_key" "user-key" {
+  count   = "${var.manage_keys == "true" ? 1 : 0}"
+  user    = "${aws_iam_user.user.id}"
+  pgp_key = "${var.pgp_key}"
 }
 
-output "blee-secretkey" {
-  value = "${module.blee.secret_access_key}"
-}
-
-output "blee-password" {
-  value = "${module.blee.password}"
+resource "aws_iam_user_login_profile" "user" {
+  count   = "${var.gui_access == "true" ? 1 : 0}"
+  user    = "${aws_iam_user.user.name}"
+  pgp_key = "${var.pgp_key}"
 }

@@ -16,25 +16,7 @@ output "ip" {
 }
 
 
-module "thomas" {
-  source   = "./user"
-  name     = "thomas"
 
-  // base64-encoded PGP public key (NOT PEM FORMAT)
-  pgp_key = ""
-}
-
-output "thomas-accesskey" {
-  value = "${module.thomas.access_key_id}"
-}
-
-output "thomas-secretkey" {
-  value = "${module.thomas.secret_access_key}"
-}
-
-output "thomas-password" {
-  value = "${module.thomas.password}"
-}
 
 
 
@@ -43,7 +25,7 @@ module "blee" {
   name     = "blee"
 
   // base64-encoded PGP public key (NOT PEM FORMAT)
-  pgp_key = ""
+  pgp_key = "abc"
 
  gui_access  = "true"
 }
